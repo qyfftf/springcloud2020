@@ -1,4 +1,4 @@
-package com.qc.springcloud.controller;
+package com.qc.springcloud;
 
 import com.qc.springcloud.entity.Payment;
 import com.qc.springcloud.entity.R;
