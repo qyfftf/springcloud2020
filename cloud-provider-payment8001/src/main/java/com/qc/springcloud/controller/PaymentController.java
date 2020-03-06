@@ -19,7 +19,7 @@ public class PaymentController {
     @Resource
     private PaymentService paymentService;
     @PostMapping
-    public R creat(Payment payment){
+    public R creat(@RequestBody Payment payment){
         int i = paymentService.create(payment);
         log.info("插入结构{}",i);
         if(i>0){

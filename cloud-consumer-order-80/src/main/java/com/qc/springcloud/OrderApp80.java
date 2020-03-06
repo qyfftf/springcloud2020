@@ -6,12 +6,12 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author qc
- * @create 2020-03-05 21:50
+ * @create 2020-03-06 20:47
  */
 @SpringBootApplication
-@EnableDiscoveryClient//启动服务发现
-public class PaymentMainApp8001 {
+@EnableDiscoveryClient
+public class OrderApp80 {
     public static void main(String[] args) {
-        SpringApplication.run(PaymentMainApp8001.class,args);
+        SpringApplication.run(OrderApp80.class,args);
     }
 }
