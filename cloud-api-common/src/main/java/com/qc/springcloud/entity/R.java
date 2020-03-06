@@ -1,6 +1,6 @@
 package com.qc.springcloud.entity;
 
-import com.qc.springcloud.common.enums.ResultCodeEnum;
+import com.qc.springcloud.enums.ResultCodeEnum;
 import lombok.Data;
 
 import java.util.HashMap;

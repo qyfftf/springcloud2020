@@ -1,4 +1,4 @@
-package com.qc.springcloud.common.enums;
+package com.qc.springcloud.enums;
 
 import lombok.Getter;
 
