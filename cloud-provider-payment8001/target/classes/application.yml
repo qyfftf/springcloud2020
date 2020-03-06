@@ -12,3 +12,15 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.qc.springcloud.entity #所有实体别名类所在包
+
+eureka:
+  instance:
+    instance-id: payment8002
+    prefer-ip-address: true
+  client:
+    #false表示不想注册中心注册自己
+    register-with-eureka: true
+    #false表示自己就是注册中心，我的职责就是维护服务实例，并不需要检索服务
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
