@@ -15,7 +15,7 @@ mybatis:
 
 eureka:
   instance:
-    instance-id: payment8001
+    instance-id: payment8002
     prefer-ip-address: true
   client:
     #false表示不想注册中心注册自己

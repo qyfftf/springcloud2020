@@ -37,4 +37,8 @@ public class PaymentController {
         Payment payent = paymentService.getPayentById(id);
         return R.ok().message("查询成功"+serverport).data("payment",payent);
     }
+    @GetMapping("/lb")
+    public String getByPort(){
+        return serverport;
+    }
 }
