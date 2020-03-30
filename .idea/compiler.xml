@@ -7,14 +7,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cloud-api-common" />
+        <module name="cloud-consumer-hystrix-dashboard9001" />
+        <module name="cloud-consumer-hystrix-order80" />
         <module name="cloud-consumer-openfeign-order80" />
         <module name="cloud-consumer-order-80" />
         <module name="cloud-consumer-order80" />
         <module name="cloud-eureka-server7001" />
         <module name="cloud-eureka-server7002" />
-        <module name="cloud-provider-payment8001" />
-        <module name="cloud-provider-payment8002" />
+        <module name="cloud-gateway-gateway9527" />
+        <module name="cloud-provider-hystrix-payment8001" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cloud-provider-payment8001" target="1.8" />
+      <module name="cloud-provider-payment8002" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

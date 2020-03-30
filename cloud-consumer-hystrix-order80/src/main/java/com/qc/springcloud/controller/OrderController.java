@@ -1,8 +1,10 @@
 package com.qc.springcloud.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.qc.springcloud.entity.Payment;
 import com.qc.springcloud.entity.R;
-import com.qc.springcloud.lb.LoaderBalance;
+import com.qc.springcloud.service.PaymentHystrixServcie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.net.URI;
-import java.util.List;
+
 
 /**
  * @author qc
@@ -24,29 +25,21 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/order")
 public class OrderController {
-     private static final String url="http://CLOUD-PAYMENT-SERVICE/payment";
-     @Resource
-     private DiscoveryClient discoveryClient;
-     @Resource
-     private LoaderBalance loaderBalance;
-     @Resource
-     private RestTemplate restTemplate;
-     @GetMapping("/consumer/")
-     public R create(Payment payment){
-          return restTemplate.postForObject(url,payment,R.class);
-     }
-     @GetMapping("/{id}")
-     public R getById(@PathVariable("id") Long id){
-          return restTemplate.getForObject(url+"/"+id,R.class);
-     }
-     @GetMapping(value = "/consumer/payment/lb")
-     public String paymentLb(){
-          List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-          if(instances==null||instances.size()<=0){
-               return null;
-          }
-          ServiceInstance instances1 = loaderBalance.instances(instances);
-          URI uri = instances1.getUri();
-          return restTemplate.getForObject(uri+"/payment/lb",String.class);
-     }
+    @Resource
+    PaymentHystrixServcie paymentHystrixServcie;
+    @RequestMapping("/msg/{id}")
+    public String getMsg(@PathVariable("id") Long id){
+        return paymentHystrixServcie.getMsg(id);
+    }
+    @HystrixCommand(fallbackMethod = "timeoutHandler",commandProperties = {
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="2000")
+    })
+    @RequestMapping("/emsg/{id}")
+    public String getExceptionMsg(@PathVariable("id") Long id){
+        return paymentHystrixServcie.getExceptionMsg(id);
+    }
+    public String timeoutHandler(@PathVariable("id") Long id){
+        return "订单服务调用支付服务超时，请稍后重试";
+    }
+
 }
